@@ -127,10 +127,10 @@
                 alert('Please enter the OTP shown in the Security App.');
                 return;
             }
-            if (!/^[0-9]{4,6}$/.test(otp)) {
-                alert('Please enter a valid numeric OTP.');
-                return;
-            }
+            // if (!/^[0-9]{4,6}$/.test(otp)) {
+            //     alert('Please enter a valid numeric OTP.');
+            //     return;
+            // }
 
             verifyBtn.style.opacity = '0.5';
             verifyBtn.innerHTML = 'Verifying . . .';
